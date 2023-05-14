@@ -1,0 +1,52 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.10
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/duartej/dockerfiles-corryvreckan:
+      branch: master
+      repo: https://github.com/duartej/dockerfiles-corryvreckan
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/duartej/dockerfiles-corryvreckan git:
+        commands:
+        - /usr/bin/env sh .sqa/script.stealthy-jade-meerkat.sh
+        container: qc.acc_boozy-lemon-chimpanzee
+  QC.Doc:
+    repos:
+      github.com/duartej/dockerfiles-corryvreckan find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.muggy-amber-salamander.sh
+        container: qc.doc_zippy-tangerine-ostrich
+      github.com/duartej/dockerfiles-corryvreckan git:
+        commands:
+        - /usr/bin/env sh .sqa/script.shaky-blue-cheetah.sh
+        container: qc.doc_squirrely-cerulean-molly
+      github.com/duartej/dockerfiles-corryvreckan markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.slaphappy-sangria-uguisu.sh
+        container: qc.doc_stinky-tomato-lemur
+  QC.Lic:
+    repos:
+      github.com/duartej/dockerfiles-corryvreckan licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.wiggy-amber-peccary.sh
+        container: qc.lic_bumpy-lavender-raccoon
+  QC.Sty:
+    repos:
+      github.com/duartej/dockerfiles-corryvreckan hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.lumpy-goldenrod-chin.sh
+        container: qc.sty_skinny-copper-spider
+  QC.Ver:
+    repos:
+      github.com/duartej/dockerfiles-corryvreckan get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.hasty-cream-owl.sh
+        container: qc.ver_trippy-orchid-eel
+timeout: 5400
